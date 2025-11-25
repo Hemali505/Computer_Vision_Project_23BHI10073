@@ -1,0 +1,122 @@
+<!-- templates/reports.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Defect Reports</h1>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">Recent Defects</h5>
+                <div>
+                    <button class="btn btn-sm btn-outline-primary me-2" id="exportCsv">Export CSV</button>
+                    <button class="btn btn-sm btn-outline-secondary" id="refreshData">Refresh</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Defect Type</th>
+                                <th>Confidence</th>
+                                <th>Timestamp</th>
+                                <th>Edge Density</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for defect in defects %}
+                            <tr>
+                                <td>{{ defect[0] or 'N/A' }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if defect[1] == 'GOOD' %}bg-success
+                                        {% elif defect[1] == 'MINOR' %}bg-warning
+                                        {% elif defect[1] == 'MAJOR' %}bg-warning
+                                        {% elif defect[1] == 'CRITICAL' %}bg-danger
+                                        {% else %}bg-secondary{% endif %}">
+                                        {{ defect[1] }}
+                                    </span>
+                                </td>
+                                <td>{{ "%.2f"|format(defect[2]) }}</td>
+                                <td>{{ defect[3] }}</td>
+                                <td>{{ "%.4f"|format(defect[4]) if defect[4] else 'N/A' }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">No defect records found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Defect Statistics</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="defectChart" width="400" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Report Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary" id="generateDailyReport">
+                        📅 Generate Daily Report
+                    </button>
+                    <button class="btn btn-outline-secondary" id="generateWeeklyReport">
+                        📊 Generate Weekly Report
+                    </button>
+                    <button class="btn btn-outline-info" id="viewTrends">
+                        📈 View Trends
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Quick Stats</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h4>{{ defects|length }}</h4>
+                        <small class="text-muted">Total Records</small>
+                    </div>
+                    <div class="col-6">
+                        <h4>
+                            {{ defects|selectattr("1", "equalto", "CRITICAL")|list|length }}
+                        </h4>
+                        <small class="text-muted">Critical Defects</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/reports.js') }}"></script>
+{% endblock %}

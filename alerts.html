@@ -1,0 +1,149 @@
+<!-- templates/alerts.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Defect Alerts</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    ⚠️ Critical & Major Defects
+                    <span class="badge bg-danger ms-2">{{ defects|length }}</span>
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if defects %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Defect Type</th>
+                                <th>Confidence</th>
+                                <th>Timestamp</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for defect in defects %}
+                            <tr class="{% if defect[1] == 'CRITICAL' %}table-danger{% else %}table-warning{% endif %}">
+                                <td><strong>{{ defect[0] or 'UNKNOWN' }}</strong></td>
+                                <td>
+                                    <span class="badge {% if defect[1] == 'CRITICAL' %}bg-danger{% else %}bg-warning{% endif %}">
+                                        {{ defect[1] }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar {% if defect[1] == 'CRITICAL' %}bg-danger{% else %}bg-warning{% endif %}" 
+                                             style="width: {{ (defect[2] * 100)|int }}%">
+                                            {{ "%.1f"|format(defect[2] * 100) }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ defect[3] }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">View Details</button>
+                                    <button class="btn btn-sm btn-outline-success">Mark Resolved</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <div class="text-success mb-3">
+                        <i class="fas fa-check-circle" style="font-size: 3rem;"></i>
+                    </div>
+                    <h4>No Critical Alerts</h4>
+                    <p class="text-muted">No major or critical defects detected in the last 24 hours.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Alert Settings</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Alert Threshold</label>
+                        <select class="form-select">
+                            <option>High (All Major & Critical)</option>
+                            <option selected>Medium (Critical Only)</option>
+                            <option>Low (Manual Review)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Notification Email</label>
+                        <input type="email" class="form-control" value="quality-team@company.com">
+                    </div>
+                    
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" checked>
+                        <label class="form-check-label">Enable Email Alerts</label>
+                    </div>
+                    
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox">
+                        <label class="form-check-label">Enable SMS Alerts</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Alert History</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Critical Defect Detected</h6>
+                            <small>2 hours ago</small>
+                        </div>
+                        <p class="mb-1">Product: PROD045 - Metal Bracket</p>
+                        <small class="text-muted">Confidence: 92%</small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Major Defect Detected</h6>
+                            <small>5 hours ago</small>
+                        </div>
+                        <p class="mb-1">Product: PROD128 - Plastic Cover</p>
+                        <small class="text-muted">Confidence: 78%</small>
+                    </div>
+                    
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">System Alert</h6>
+                            <small>1 day ago</small>
+                        </div>
+                        <p class="mb-1">Camera calibration required</p>
+                        <small class="text-muted">Maintenance</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
