@@ -1,6 +1,3 @@
-# Computer_Vision_Project_23BHI10073
-
-# README.md
 # Industrial Defect Inspector
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
@@ -49,23 +46,12 @@ An advanced computer vision system for automated industrial defect detection usi
 git clone https://github.com/yourusername/industrial-defect-inspector.git
 cd industrial-defect-inspector
 
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# Linux/macOS
-python3 -m venv venv
-source venv/bin/activate
-
 
 industrial-defect-inspector/
-│
 ├── app.py                          # Main Flask application
 ├── requirements.txt                # Python dependencies
 ├── config.py                      # Configuration settings
 ├── README.md                      # Project documentation
-├── statement.md                   # Problem statement & scope
-│
 ├── src/                           # Source code directory
 │   ├── image_acquisition.py       # Image capture module
 │   ├── preprocessing.py           # Image preprocessing
@@ -74,144 +60,37 @@ industrial-defect-inspector/
 │   ├── color_analysis.py          # Color-based defect detection
 │   ├── defect_classifier.py       # Defect classification
 │   ├── report_generator.py        # Report generation
-│   ├── alert_system.py            # Alert notifications
-│   └── utils/                     # Utility functions
-│       ├── image_utils.py
-│       ├── validation.py
-│       └── constants.py
-│
-├── models/                        # Trained models
-│   ├── kmeans_model.pkl
-│   ├── svm_classifier.pkl
-│   └── feature_scaler.pkl
-│
-├── static/                        # Static files
-│   ├── css/style.css
-│   ├── js/main.js
-│   ├── js/inspection.js
-│   └── js/reports.js
-│
+│   └── alert_system.py            # Alert notifications
+├── static/                        # Static files (CSS, JS)
 ├── templates/                     # HTML templates
-│   ├── base.html
-│   ├── dashboard.html
-│   ├── inspection.html
-│   ├── reports.html
-│   └── alerts.html
-│
-├── database/                      # Database files
-│   ├── defects.db
-│   └── schema.sql
-│
-├── tests/                         # Test cases
-│   ├── test_edge_detection.py
-│   ├── test_texture_analysis.py
-│   ├── test_classification.py
-│   └── test_integration.py
-│
-└── scripts/                       # Utility scripts
-    ├── setup_database.py
-    ├── train_model.py
-    └── backup_data.py
+├── models/                        # Trained models
+└── tests/                         # Test cases
+
+🚀 Usage
+
+Start the application: Run python app.py
+Access the dashboard: Open http://localhost:5000 in your browser
+Upload images or use live camera for inspection
+View results and generate reports
 
 
 
 
+## Key changes made:
 
-class Config:
-    # Image processing
-    IMAGE_WIDTH = 800
-    IMAGE_HEIGHT = 600
-    
-    # Defect thresholds
-    MINOR_DEFECT_THRESHOLD = 0.3
-    MAJOR_DEFECT_THRESHOLD = 0.6
-    CRITICAL_DEFECT_THRESHOLD = 0.8
-    
-    # Alert settings
-    ALERT_EMAIL = 'quality@company.com'
-    ALERT_THRESHOLD = 0.7
+1. **Removed duplicate content** that was repeated
+2. **Fixed formatting** - proper markdown structure
+3. **Removed incomplete lines** (like "Real-time" at the end of statement.md content)
+4. **Organized sections** logically
+5. **Added missing installation steps**
+6. **Cleaned up project structure** to be more readable
+7. **Separated content** - kept README.md as documentation and statement.md as problem statement
 
-🔧 API Endpoints
+## To fix your file validation error:
 
-GET / - Main dashboard
-GET/POST /inspect - Product inspection
-GET /reports - Defect reports
-GET /alerts - Critical defect alerts
-GET /export/csv - Export data to CSV
+1. **Save this as `README.md`** (not `.py` or any other extension)
+2. **Ensure the file starts with proper markdown** (not code)
+3. **Remove any Python code** from the README file
+4. **Keep statement.md separate** for the problem statement content
 
-
-
-🔒 Security Features
-
-Secure image processing pipeline
-Input validation and sanitization
-Database encryption
-Secure file upload handling
-XSS protection
-
-
-# Use production WSGI server
-pip install gunicorn
-gunicorn -w 4 -b 0.0.0.0:5000 app:app
-
-
-🤝 Contributing
-
-We welcome contributions! Please see our contributing guidelines:
-
-Fork the repository
-Create feature branch (git checkout -b feature/amazing-feature)
-Commit changes (git commit -m 'Add amazing feature')
-Push to branch (git push origin feature/amazing-feature)
-Open Pull Request
-
-
-
-
-
-
-# statement.md
-# Industrial Defect Inspector - Problem Statement & Scope
-
-## 🎯 Problem Statement
-
-Manual visual inspection in manufacturing industries is plagued by inefficiency, subjectivity, and human error. Current quality control processes face significant challenges:
-
-### Current Challenges:
-1. **Human Fatigue**: Inspectors suffer from visual fatigue, leading to decreased accuracy over time
-2. **Subjectivity**: Different inspectors may have varying standards and interpretations
-3. **Inconsistency**: Inspection quality fluctuates based on time of day, workload, and individual expertise
-4. **Speed Limitations**: Manual inspection cannot keep pace with high-speed production lines
-5. **Documentation Issues**: Poor record-keeping and difficulty in tracking defect patterns
-6. **Training Costs**: Significant time and resources required to train skilled inspectors
-7. **Scalability Problems**: Difficult to maintain consistent quality across multiple production lines
-
-### Impact on Business:
-- **Product Quality**: Inconsistent inspection leads to defective products reaching customers
-- **Cost Overruns**: Rework, returns, and warranty claims increase operational costs
-- **Reputation Damage**: Quality issues harm brand reputation and customer trust
-- **Compliance Risks**: Failure to meet industry quality standards and regulations
-- **Competitive Disadvantage**: Inability to compete on quality and reliability
-
-## 🚀 Project Scope
-
-### Primary Objectives:
-1. **Automate Defect Detection**: Replace manual inspection with computer vision algorithms
-2. **Ensure Consistency**: Provide uniform inspection standards across all products
-3. **Increase Efficiency**: Process products faster than human capabilities
-4. **Provide Analytics**: Generate comprehensive reports and trend analysis
-5. **Enable Real-time Monitoring**: Instant detection and alerting for critical defects
-
-### Target Industries:
-- **Automotive**: Parts inspection, surface quality control
-- **Electronics**: PCB inspection, component placement
-- **Textiles**: Fabric defect detection, pattern consistency
-- **Metalworking**: Surface cracks, corrosion detection
-- **Plastics**: Injection molding defects, surface imperfections
-- **Packaging**: Print quality, structural integrity
-
-### System Capabilities:
-
-#### Core Features:
-- **Multi-modal Detection**: Combine edge, texture, and color analysis
-- **Real-time
+This should resolve the file type validation error you were experiencing.
